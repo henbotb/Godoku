@@ -1,6 +1,8 @@
 extends GridContainer
 class_name Candidates
 
+
+
 const HIGHLIGHTED = preload("uid://be5h05f4havy0")
 const DEFAULT = preload("uid://dqqaua4my3ejj")
 

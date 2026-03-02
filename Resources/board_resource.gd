@@ -1,6 +1,8 @@
 class_name BoardResource
 extends Resource
 
+signal board_loaded
+
 # TESTING: remove exports
 @export var NUM_COLS := 0
 @export var NUM_ROWS := 0
@@ -48,4 +50,8 @@ func _ready() -> void:
 			#	row.append(-1 * int(string[y * BLOCK_SIZE + x]))
 			row.append(0)
 		board_array.append(row)
+		
+	board_loaded.emit()
+		
+	
 		

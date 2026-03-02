@@ -5,10 +5,9 @@ var candidates: CandidateResource
 
 var selected_cell := Vector2i(0, 0)
 
-func _intialize_board_data(b: BoardResource, c: CandidateResource) -> void:
-	board = b
-	candidates = c
-	
+
+func initialize_board_data() -> void:
+
 	for block in board.board_array:
 		var block_new = GridContainer.new()
 		block_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL

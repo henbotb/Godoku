@@ -2,21 +2,29 @@ extends Node
 
 # credit https://www.youtube.com/watch?v=m4PfHg3hmSo
 
+enum SceneType {
+	Puzzle,
+	Menu,
+}
+
 signal progress_changed(progress)
 signal load_finished
 
 var loading_screen: PackedScene = preload("uid://cuk8samoivepx")
 var loaded_resource: PackedScene
 var scene_path: String
+var scene_type: SceneType
+var scene_data: Dictionary
 var progress: Array = []
 var use_sub_threads: bool = true
 
 func _ready() -> void:
 	set_process(false)
 	
-# "_" for function parameters is WAY smart why am I not doing that
-func load_scene(_scene_path: String) -> void:
+func load_scene(_scene_path: String, _scene_type: SceneType, _scene_data: Dictionary = {}) -> void:
 	scene_path = _scene_path
+	scene_type = _scene_type
+	scene_data = _scene_data
 	
 	var new_load_screen = loading_screen.instantiate()
 	add_child(new_load_screen)
@@ -31,7 +39,7 @@ func start_load() -> void:
 	var state = ResourceLoader.load_threaded_request(scene_path, "", use_sub_threads)
 	if state == OK:
 		set_process(true)
-		
+
 
 func _process(_delta: float) -> void:
 	var load_status = ResourceLoader.load_threaded_get_status(scene_path, progress)
@@ -42,7 +50,18 @@ func _process(_delta: float) -> void:
 		ResourceLoader.THREAD_LOAD_LOADED:
 			
 			loaded_resource = ResourceLoader.load_threaded_get(scene_path)
-			get_tree().change_scene_to_packed(loaded_resource)
+			
+			#get_tree().change_scene_to_packed(loaded_resource)
+			var scene_instance: Node = loaded_resource.instantiate()
+			
+			match(scene_type):
+				SceneType.Puzzle:
+					scene_instance.board = scene_data["board"]
+					scene_instance.candidates = scene_data["candidates"]
+					scene_instance.initialize_board_data()
+					
+			get_tree().change_scene_to_node(scene_instance)
+			
 			load_finished.emit()
 			set_process(false)
 	

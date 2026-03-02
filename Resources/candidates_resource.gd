@@ -1,6 +1,8 @@
 class_name CandidateResource
 extends Resource
 
+signal candidates_loaded
+
 # TESTING: remove exports
 @export var NUM_COLS := 0
 @export var NUM_ROWS := 0
@@ -36,3 +38,4 @@ func _ready() -> void:
 			row.append(false)
 		candidate_array.append(row)
 		
+	candidates_loaded.emit()
