@@ -43,5 +43,5 @@ func _init(board_cols: int, board_rows: int, big_cols: int, big_rows: int) -> vo
 			# TODO: Add string read-in
 			#if string[y * BLOCK_SIZE + x] != 0:
 			#	row.append(-1 * int(string[y * BLOCK_SIZE + x]))
-			row.append(0)
+			row.append(0 if randf() > 0.5 else randi_range(1, 9))
 		board_array.append(row)

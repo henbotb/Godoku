@@ -56,6 +56,10 @@ func toggle_fullscreen(toggled_on: bool) -> void:
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
+func _update_color(color: Color):
+	Settings.highlight_color = color
+	Settings.HIGHLIGHTED.get_stylebox("normal", "Button").bg_color = color
+
 # TODO: make more comprehensive "window order" settings,
 # maybe have a singleton that tracks the "outermost" control node, and on
 # &"escape", it reads from the singleton to close the outermost layer

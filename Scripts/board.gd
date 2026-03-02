@@ -148,8 +148,6 @@ func render_board():
 	for cell in cells:
 		cell.render()
 
-var unique_line_identifier = 0
-
 func _input(event):
 	if event.is_action_pressed("toggle_candidate_marking"):
 		print("Toggling candidate marking %d" % unique_line_identifier)

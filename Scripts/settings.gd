@@ -5,9 +5,9 @@ var config = ConfigFile.new()
 # DISPLAY AND AUDIO SETTINGS
 var fullscreen: bool
 
-var master_percentage: int
-var music_percentage: int
-var effect_percentage: int
+var master_percentage: float
+var music_percentage: float
+var effect_percentage: float
 
 # BOARD SETTINGS
 var highlight_house: bool
@@ -21,15 +21,13 @@ var highlight_color: Color
 
 # KEYBIND SETTINSG
 
+# settings that don't rely on the menu
+const HIGHLIGHTED = preload("uid://be5h05f4havy0")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	var my_int = 12
-	var my_int_2 = 34
-	int(str(my_int) + str(my_int_2))
-	
+
 	# TODO: delete these lines, resets config for testing purpose
 	#var dir = DirAccess.open("user://")
 	#dir.remove("game_settings.cfg")
@@ -40,8 +38,7 @@ func _ready() -> void:
 	load_settings()
 	save()
 
-func load_settings():
-	
+func load_settings():	
 	# DISPLAY AND AUDIO SETTINGS
 	fullscreen = config.get_value("game_settings", "fullscreen", false)
 	master_percentage = config.get_value("game_settings", "master_percentage", 50)
@@ -58,6 +55,7 @@ func load_settings():
 	
 	highlight_color = config.get_value("board_settings", "highlight_color", Color.ROYAL_BLUE)
 
+	# KEYBIND SETTINGS
 
 
 func save():

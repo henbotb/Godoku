@@ -32,6 +32,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func load_settings():
+	# DISPLAY AND AUDIO SETTINGS
+	
+	# BOARD SETTINGS
 	highlight_houses.button_pressed = Settings.highlight_houses
 	highlight_orthogonal.button_pressed = Settings.highlight_orthogonal
 	highlight_same_value.button_pressed = Settings.highlight_same_value
@@ -39,6 +42,9 @@ func load_settings():
 	color_picker_button.color = Settings.highlight_color
 	highlight_empty_cells.button_pressed = Settings.highlight_empty_cells
 	highlight_all.button_pressed = Settings.highlight_all
+	
+	# KEYBIND SETTINGS
+
 	
 func save_settings():
 	Settings.highlight_houses = highlight_houses.button_pressed
