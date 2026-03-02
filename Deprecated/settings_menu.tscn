@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://dxbo16lvpuwe"]
+
+[ext_resource type="Theme" uid="uid://c6pxp4m17rhm" path="res://Themes/settings.tres" id="1_8uw7q"]
+
+[sub_resource type="GDScript" id="GDScript_a6ly1"]
+script/source = "extends Control
+
+var SELECTED: Theme = preload(\"uid://be5h05f4havy0\")
+var config = Settings.config
+
+@onready var color_picker_button: ColorPickerButton = $\"MarginContainer/TabContainer/Board Settings/Control/ColorPickerButton\"
+@onready var board_settings: VBoxContainer = $\"MarginContainer/TabContainer/Board Settings\"
+@onready var highlight_houses: CheckBox = $\"MarginContainer/TabContainer/Board Settings/CheckBox\"
+@onready var highlight_orthogonal: CheckBox = $\"MarginContainer/TabContainer/Board Settings/CheckBox2\"
+@onready var highlight_same_value: CheckBox = $\"MarginContainer/TabContainer/Board Settings/CheckBox3\"
+@onready var highlight_candidates: CheckBox = $\"MarginContainer/TabContainer/Board Settings/CheckBox4\"
+@onready var highlight_empty_cells: CheckButton = $\"MarginContainer/TabContainer/Board Settings/CheckButton\"
+@onready var highlight_all: CheckBox = $\"MarginContainer/TabContainer/Board Settings/CheckBox5\"
+
+func stylize_color_picker():
+	var color_picker = color_picker_button.get_picker()
+	color_picker.sampler_visible = false
+	color_picker.color_modes_visible = false
+	color_picker.sliders_visible = false
+	color_picker.hex_visible = false
+	color_picker.presets_visible = false
+
+# TODO: Not sure if the right place, but font resizing / font portion options for both candidates and cells
+ 
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+
+	load_settings()
+	stylize_color_picker()
+	update_game_settings()
+	pass # Replace with function body.
+
+func load_settings():
+	# DISPLAY AND AUDIO SETTINGS
+	
+	# BOARD SETTINGS
+	highlight_houses.button_pressed = Settings.highlight_houses
+	highlight_orthogonal.button_pressed = Settings.highlight_orthogonal
+	highlight_same_value.button_pressed = Settings.highlight_same_value
+	highlight_candidates.button_pressed = Settings.highlight_candidates
+	color_picker_button.color = Settings.highlight_color
+	highlight_empty_cells.button_pressed = Settings.highlight_empty_cells
+	highlight_all.button_pressed = Settings.highlight_all
+	
+	# KEYBIND SETTINGS
+
+	
+func save_settings():
+	Settings.highlight_houses = highlight_houses.button_pressed
+	Settings.highlight_orthogonal = highlight_orthogonal.button_pressed
+	Settings.highlight_same_value = highlight_same_value.button_pressed
+	Settings.highlight_candidates = highlight_candidates.button_pressed
+	Settings.highlight_color = color_picker_button.color
+	Settings.highlight_empty_cells = highlight_empty_cells.button_pressed
+	Settings.highlight_all = highlight_all.button_pressed
+	
+	Settings.save()
+
+func update_game_settings():
+	# TODO: Maybe move this to settings.gd as well
+	SELECTED.get_stylebox(\"normal\", \"Button\").bg_color = Settings.highlight_color
+	
+"
+
+[node name="SettingsMenu" type="Control" unique_id=1917882044]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 234.0
+offset_top = 51.0
+offset_right = -234.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = SubResource("GDScript_a6ly1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1699648056]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer" unique_id=1396842518]
+layout_mode = 2
+theme = ExtResource("1_8uw7q")
+current_tab = 1
+
+[node name="Game Settings" type="VBoxContainer" parent="MarginContainer/TabContainer" unique_id=2069897818]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Game Settings" unique_id=764570410]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Highlight house when cell is selected"
+
+[node name="Board Settings" type="VBoxContainer" parent="MarginContainer/TabContainer" unique_id=997995161]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Board Settings" unique_id=818266019]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Highlight Settings"
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/TabContainer/Board Settings" unique_id=1227449039]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Hightlight when empty cells selected"
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=507347993]
+layout_mode = 2
+button_pressed = true
+text = "Highlight house when cell is selected"
+
+[node name="CheckBox2" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1828486931]
+layout_mode = 2
+button_pressed = true
+text = "Highlight row / column when cell is selected"
+
+[node name="CheckBox3" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=668747734]
+layout_mode = 2
+button_pressed = true
+text = "Highlight other cells with the same value when cell is selected"
+
+[node name="CheckBox4" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1845666763]
+layout_mode = 2
+button_pressed = true
+text = "Highlight candidate values with the same value in cells when cell is selected"
+
+[node name="CheckBox5" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1566473834]
+layout_mode = 2
+button_pressed = true
+text = "Highlight paths of all numbers of selected type"
+
+[node name="Control" type="HBoxContainer" parent="MarginContainer/TabContainer/Board Settings" unique_id=1127038546]
+layout_mode = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/TabContainer/Board Settings/Control" unique_id=1917111648]
+custom_minimum_size = Vector2(46.805, 0)
+layout_mode = 2
+theme = ExtResource("1_8uw7q")
+color = Color(1, 0.38395518, 0.27377793, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Board Settings/Control" unique_id=719541854]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Set Highlight Color"

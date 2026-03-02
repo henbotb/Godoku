@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://csh5e4axckrjk"]
+
+[ext_resource type="Script" uid="uid://bfxkffpmslikr" path="res://Deprecated/start_menu.gd" id="1_76q7f"]
+
+[node name="StartMenu" type="Control" unique_id=830430496]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_76q7f")
+
+[node name="ButtonStart" type="Button" parent="." unique_id=1022915962]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 383.0
+offset_right = 712.0
+offset_bottom = 441.58997
+text = "Enter Game"
+
+[node name="ButtonSettings" type="Button" parent="." unique_id=1470323161]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 465.0
+offset_right = 712.0
+offset_bottom = 529.0
+text = "Settings
+"
+
+[node name="ButtonQuit" type="Button" parent="." unique_id=129593453]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 552.0
+offset_right = 712.0
+offset_bottom = 615.0
+text = "Quit
+"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1828446286]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -276.0
+offset_right = 296.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.31966758, 0.13105541, 0.17752498, 1)
+
+[node name="TextEdit" type="TextEdit" parent="ColorRect" unique_id=1407609240]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -220.0
+offset_right = 16.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=975897904]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -250.0
+offset_right = -118.0
+offset_bottom = -227.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Enter board code:"
+
+[node name="ButtonGenerate" type="Button" parent="ColorRect" unique_id=606494500]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 98.0
+offset_right = 128.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Generate Puzzle"
+
+[node name="ButtonCopy" type="Button" parent="ColorRect" unique_id=1324157622]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -220.0
+offset_right = 224.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Copy From Clipboard"
+
+[node name="Label3" type="Label" parent="ColorRect" unique_id=1242111263]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 156.0
+offset_right = 378.0
+offset_bottom = 205.0
+text = "OR
+Choose Difficulty"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect" unique_id=754956939]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 236.0
+offset_right = 392.0
+offset_bottom = 267.0
+item_count = 4
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Impossible"
+popup/item_3/id = 3
+
+[connection signal="button_up" from="ButtonStart" to="." method="_on_button_start_button_up"]
+[connection signal="button_up" from="ButtonQuit" to="." method="_on_button_quit_button_up"]
+[connection signal="button_up" from="ColorRect/ButtonGenerate" to="." method="_on_button_generate_button_up"]
+[connection signal="button_up" from="ColorRect/ButtonCopy" to="." method="_on_button_copy_button_up"]

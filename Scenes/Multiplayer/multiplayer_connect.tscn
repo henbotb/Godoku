@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ei00tr1235gg"]
 
-[ext_resource type="Script" uid="uid://dffdb0mnrumri" path="res://Scripts/multiplayer_connect.gd" id="1_jdkww"]
+[ext_resource type="Script" uid="uid://dffdb0mnrumri" path="res://Scripts/multiplayer/multiplayer_connect.gd" id="1_jdkww"]
 
 [node name="MultiplayerConnect" type="Control" unique_id=923575184]
 layout_mode = 3

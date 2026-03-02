@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c271emt7531n1"]
+[gd_scene format=3 uid="uid://bguovowy47mlo"]
 
-[ext_resource type="Script" uid="uid://gqicysb8c852" path="res://Scripts/board.gd" id="1_oe7w2"]
+[ext_resource type="Script" uid="uid://gqicysb8c852" path="res://Deprecated/board.gd" id="1_n8bl7"]
 
 [node name="Board" type="GridContainer" unique_id=2083658169]
 anchors_preset = 8
@@ -16,5 +16,5 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_oe7w2")
+script = ExtResource("1_n8bl7")
 metadata/_custom_type_script = "uid://gqicysb8c852"

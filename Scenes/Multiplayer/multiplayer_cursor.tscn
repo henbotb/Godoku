@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c82y7kwaq4umc"]
 
-[ext_resource type="Script" uid="uid://gkx5vtymnqpj" path="res://Scripts/multiplayer_cursor.gd" id="1_m1dal"]
+[ext_resource type="Script" uid="uid://gkx5vtymnqpj" path="res://Scripts/multiplayer/multiplayer_cursor.gd" id="1_m1dal"]
 [ext_resource type="Texture2D" uid="uid://bg564uby80wuh" path="res://Assets/Icons/cursor.svg" id="2_m1dal"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ko34u"]

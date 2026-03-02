@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dhyaupkgxqpy0"]
 
 [ext_resource type="Theme" uid="uid://dqqaua4my3ejj" path="res://Themes/default.tres" id="1_yjef2"]
-[ext_resource type="Script" uid="uid://byuhxqm778err" path="res://Refactor/scripts/pause_menu.gd" id="2_xyptv"]
+[ext_resource type="Script" uid="uid://byuhxqm778err" path="res://Scripts/pause_menu.gd" id="2_xyptv"]
 [ext_resource type="Shader" uid="uid://8rmrr6mh67ra" path="res://Shaders/Blur.gdshader" id="3_uv1he"]
-[ext_resource type="PackedScene" uid="uid://blmnss33r7uw2" path="res://Refactor/scenes/settings_menu.tscn" id="4_nrm23"]
+[ext_resource type="PackedScene" uid="uid://blmnss33r7uw2" path="res://Scenes/settings_menu.tscn" id="4_nrm23"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddtuy"]
 shader = ExtResource("3_uv1he")

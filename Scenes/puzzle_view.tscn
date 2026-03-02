@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ceg2ys6ghalka"]
 
-[ext_resource type="Script" uid="uid://bgse4ifyidkof" path="res://Refactor/scripts/puzzle_view.gd" id="1_w0304"]
+[ext_resource type="Script" uid="uid://bgse4ifyidkof" path="res://Scripts/puzzle_view.gd" id="1_w0304"]
 [ext_resource type="Shader" uid="uid://8rmrr6mh67ra" path="res://Shaders/Blur.gdshader" id="2_hqm3o"]
-[ext_resource type="PackedScene" uid="uid://dhyaupkgxqpy0" path="res://Refactor/scenes/pause_menu.tscn" id="2_yp3t0"]
+[ext_resource type="PackedScene" uid="uid://dhyaupkgxqpy0" path="res://Scenes/pause_menu.tscn" id="2_yp3t0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gjpfy"]
 shader = ExtResource("2_hqm3o")

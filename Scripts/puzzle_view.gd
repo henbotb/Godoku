@@ -26,7 +26,7 @@ func _initialize_board_data() -> void:
 			var cell_new = Button.new()
 			cell_new.text = str(cell) if cell != 0 else ""
 			cell_new.add_to_group("cell")
-			cell_new.add_to_group(cell_new.text)
+			cell_new.add_to_group("candidate_%s" % cell_new.text if cell_new.text != "" else "empty") # idk
 			cell_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			cell_new.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			
@@ -90,7 +90,7 @@ func highlight_block(_cell: Button):
 		cell.add_to_group("highlighted")
 	
 func highlight_same_value(_cell: Button):
-	for cell: Button in get_tree().get_nodes_in_group(_cell.text):
+	for cell: Button in get_tree().get_nodes_in_group("candidate_%s" % _cell.text):
 		cell.theme = Settings.HIGHLIGHTED
 		cell.add_to_group("highlighted")
 	

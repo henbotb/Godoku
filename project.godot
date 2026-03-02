@@ -20,7 +20,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 
 [autoload]
 
-Settings="*res://Scripts/settings.gd"
+Settings="*res://Scripts/autoloads/settings.gd"
 GameState="*uid://c4bxbxoc76whq"
 NetworkHandler="*uid://3ikwuirbvmw7"
 SceneLoader="*uid://238ku6txusiu"

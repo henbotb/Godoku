@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://savom74euiuk"]
+[gd_scene format=3 uid="uid://ker67lsml7nl"]
 
 [sub_resource type="GDScript" id="GDScript_ipklt"]
 script/source = "extends GridContainer

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cuk8samoivepx"]
 
-[ext_resource type="Script" uid="uid://cowxucia7mgqa" path="res://Refactor/scripts/loading_screen.gd" id="1_cl2l2"]
+[ext_resource type="Script" uid="uid://cowxucia7mgqa" path="res://Scripts/loading_screen.gd" id="1_cl2l2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7hmj"]
 bg_color = Color(0, 0, 0, 1)

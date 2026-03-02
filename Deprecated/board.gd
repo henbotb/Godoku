@@ -150,14 +150,12 @@ func render_board():
 
 func _input(event):
 	if event.is_action_pressed("toggle_candidate_marking"):
-		print("Toggling candidate marking %d" % unique_line_identifier)
 		if GameState.marking_mode == GameState.MarkingMode.CELL_CANDIDATE:
 			GameState.marking_mode = GameState.MarkingMode.ADD
 		else:
 			GameState.marking_mode = GameState.MarkingMode.CELL_CANDIDATE
 
 	if event is InputEventKey and event.pressed:
-		unique_line_identifier += 1
 		if selected_cell == null:
 			return
 

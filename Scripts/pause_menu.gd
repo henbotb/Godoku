@@ -30,7 +30,10 @@ func display_multiplayer(on: bool):
 
 func confirm_quit():
 	# TODO: some save function of some kind
-	SceneLoader.load_scene("res://Refactor/scenes/start_menu.tscn", SceneLoader.SceneType.Menu)
+	SceneLoader.load_scene(
+		"uid://d30yqy8wiye5i", 
+		SceneLoader.SceneType.Menu,
+		)
 
 func _input(event: InputEvent):
 	if event.is_action_pressed(&"settings"):

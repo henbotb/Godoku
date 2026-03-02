@@ -1,98 +1,216 @@
-[gd_scene format=3 uid="uid://b6qpnuygpq6wf"]
+[gd_scene format=3 uid="uid://blmnss33r7uw2"]
 
-[ext_resource type="Theme" uid="uid://c6pxp4m17rhm" path="res://Themes/settings.tres" id="1_8uw7q"]
-[ext_resource type="Script" uid="uid://c07ve34vi8rsv" path="res://Scripts/settings_menu.gd" id="1_bxjf0"]
+[ext_resource type="Script" uid="uid://bqh1ypv0h0ck7" path="res://Scripts/settings_menu.gd" id="1_5a856"]
+[ext_resource type="Theme" uid="uid://dqqaua4my3ejj" path="res://Themes/default.tres" id="3_b4jr2"]
 
-[node name="SettingsMenu" type="Control" unique_id=1917882044]
+[node name="Settings" type="Control" unique_id=1967479882]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 234.0
-offset_top = 51.0
-offset_right = -234.0
-offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-script = ExtResource("1_bxjf0")
+script = ExtResource("1_5a856")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1699648056]
+[node name="SettingTabContainer" type="TabContainer" parent="." unique_id=1816981668]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 304.0
+offset_top = 48.0
+offset_right = -304.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_b4jr2")
+current_tab = 1
+tab_0/title = "Display & Audio"
+tab_1/title = "Board"
+tab_2/title = "Keybinds"
+
+[node name="DisplayAndAudioTabBar" type="TabBar" parent="SettingTabContainer" unique_id=1422655182]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+metadata/_tab_name = "Display & Audio"
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingTabContainer/DisplayAndAudioTabBar" unique_id=1301983935]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer" unique_id=1396842518]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer" unique_id=2052257186]
 layout_mode = 2
-theme = ExtResource("1_8uw7q")
-current_tab = 1
 
-[node name="Game Settings" type="VBoxContainer" parent="MarginContainer/TabContainer" unique_id=2069897818]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Game Settings" unique_id=764570410]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Highlight house when cell is selected"
-
-[node name="Board Settings" type="VBoxContainer" parent="MarginContainer/TabContainer" unique_id=997995161]
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Board Settings" unique_id=818266019]
+[node name="Label" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=1852270955]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Highlight Settings"
+text = "Display"
 
-[node name="CheckButton" type="CheckButton" parent="MarginContainer/TabContainer/Board Settings" unique_id=1227449039]
+[node name="FullscreenCheckButton" type="CheckButton" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=1432977279]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Hightlight when empty cells selected"
+size_flags_vertical = 4
+text = "Fullscreen"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=507347993]
+[node name="Label2" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=2021748406]
 layout_mode = 2
-button_pressed = true
-text = "Highlight house when cell is selected"
+size_flags_horizontal = 4
+text = "Audio"
 
-[node name="CheckBox2" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1828486931]
-layout_mode = 2
-button_pressed = true
-text = "Highlight row / column when cell is selected"
-
-[node name="CheckBox3" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=668747734]
-layout_mode = 2
-button_pressed = true
-text = "Highlight other cells with the same value when cell is selected"
-
-[node name="CheckBox4" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1845666763]
-layout_mode = 2
-button_pressed = true
-text = "Highlight candidate values with the same value in cells when cell is selected"
-
-[node name="CheckBox5" type="CheckBox" parent="MarginContainer/TabContainer/Board Settings" unique_id=1566473834]
-layout_mode = 2
-button_pressed = true
-text = "Highlight paths of all numbers of selected type"
-
-[node name="Control" type="HBoxContainer" parent="MarginContainer/TabContainer/Board Settings" unique_id=1127038546]
+[node name="MasterVolumeHBox" type="HBoxContainer" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=364503228]
 layout_mode = 2
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/TabContainer/Board Settings/Control" unique_id=1917111648]
-custom_minimum_size = Vector2(46.805, 0)
+[node name="Master" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox" unique_id=403900767]
 layout_mode = 2
-theme = ExtResource("1_8uw7q")
-color = Color(1, 0.38395518, 0.27377793, 1)
-edit_alpha = false
-edit_intensity = false
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Master"
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Board Settings/Control" unique_id=719541854]
+[node name="MasterSlider" type="HSlider" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox" unique_id=221405891]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Set Highlight Color"
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 11.0
+max_value = 1.5
+step = 0.001
+
+[node name="MasterPercentage" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox" unique_id=1884936803]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 2.0
+text = "0"
+
+[node name="MusicVolumeHBox" type="HBoxContainer" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=1262748970]
+layout_mode = 2
+
+[node name="Music" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox" unique_id=156709254]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox" unique_id=1821678441]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 11.0
+max_value = 1.5
+step = 0.001
+
+[node name="MusicPercentage" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox" unique_id=550128561]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 2.0
+text = "0"
+
+[node name="EffectVolumeHBox" type="HBoxContainer" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer" unique_id=2146036949]
+layout_mode = 2
+
+[node name="Effects" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox" unique_id=1451545497]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Effects"
+
+[node name="EffectSlider" type="HSlider" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox" unique_id=29408556]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 11.0
+max_value = 1.5
+step = 0.001
+
+[node name="EffectsPercentage" type="Label" parent="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox" unique_id=352164372]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 2.0
+text = "0"
+
+[node name="BoardTabBar" type="TabBar" parent="SettingTabContainer" unique_id=930520716]
+layout_mode = 2
+metadata/_tab_index = 1
+metadata/_tab_name = "Board"
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingTabContainer/BoardTabBar" unique_id=1064635857]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingTabContainer/BoardTabBar/MarginContainer" unique_id=440391477]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1418949146]
+layout_mode = 2
+text = "Highlighting"
+
+[node name="HighlightHouseCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=365784525]
+layout_mode = 2
+text = "Highlight house when cell selected"
+
+[node name="HighlightBlockCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1811087179]
+layout_mode = 2
+text = "Highlight row and column when cell selected"
+
+[node name="HighlightSameValueCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1410908937]
+layout_mode = 2
+text = "Highlight cells with the same value as selected cell"
+
+[node name="HighlightEmptyCellsCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=211176139]
+layout_mode = 2
+text = "Highlight when empty cell selected"
+
+[node name="HighlightAllCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=457232560]
+layout_mode = 2
+text = "Highlight all restrictions for value of cell selected"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=928642182]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1117828304]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer" unique_id=5319979]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+text = "Choose highlight color"
+
+[node name="KeybindTabBar" type="TabBar" parent="SettingTabContainer" unique_id=1542659211]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+metadata/_tab_name = "Keybinds"
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingTabContainer/KeybindTabBar" unique_id=190250188]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[connection signal="tab_changed" from="SettingTabContainer" to="." method="fix_ui_corner"]
+[connection signal="toggled" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/FullscreenCheckButton" to="." method="toggle_fullscreen"]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox/MasterSlider" to="." method="update_slider_percentage" binds= [&"master"]]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox/MusicSlider" to="." method="update_slider_percentage" binds= [&"music"]]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox/EffectSlider" to="." method="update_slider_percentage" binds= [&"effect"]]
+[connection signal="color_changed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_update_color"]
