@@ -14,6 +14,10 @@ func copy_code():
 	# maybe when the container is opened for the first imte
 	# not sure when the best place to actually do this is
 	# maybe it makes sense to have another button for generating the code in the first place
+	
+	# something is going to handle "locked" vs "unlocked" values. 
+	# Maybe store one as the shift counterpart: 3 -> #, 5 -> %
+	
 	DisplayServer.clipboard_set(code_line_edit.text)
 
 func toggle_code_displayed():
@@ -31,12 +35,15 @@ func _set_window_visibility(_window: String, _visible: bool):
 		"quit":
 			confirm_quit_panel.visible = _visible
 
+
 func confirm_quit():
 	# TODO: some save function of some kind
 	SceneLoader.load_scene(
 		"uid://d30yqy8wiye5i", 
 		SceneLoader.SceneType.Menu,
 		)
+		
+	settings.handle_self_input = true
 
 func _input(event: InputEvent):
 	if event.is_action_pressed(&"settings"):

@@ -175,6 +175,10 @@ text = "Highlight cells with the same value as selected cell"
 layout_mode = 2
 text = "Highlight when empty cell selected"
 
+[node name="HighlightCandidates" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1931381568]
+layout_mode = 2
+text = "Highlight candidates matching selected cells value"
+
 [node name="HighlightAllCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=457232560]
 layout_mode = 2
 text = "Highlight all restrictions for value of cell selected"
@@ -220,5 +224,6 @@ theme_override_constants/margin_bottom = 8
 [connection signal="pressed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightOrthogonalCheckBox" to="." method="_check_box_updated" flags=18]
 [connection signal="pressed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightSameValueCheckBox" to="." method="_check_box_updated" flags=18]
 [connection signal="pressed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightEmptyCellsCheckBox" to="." method="_check_box_updated" flags=18]
+[connection signal="pressed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightCandidates" to="." method="_check_box_updated" flags=18]
 [connection signal="pressed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightAllCheckBox" to="." method="_check_box_updated" flags=18]
 [connection signal="color_changed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_update_color"]

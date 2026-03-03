@@ -3,6 +3,8 @@ class_name Cell
 
 var value: int:
 	set(_value):
+		remove_from_group("value_%d" % abs(value))
+		add_to_group("value_%d" % abs(_value))
 		if _value == 0:
 			text = ""
 		else:
@@ -21,7 +23,7 @@ func _init(_pos: Vector2i, _value := 0):
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 		
-	add_to_group(str(_value))
+	add_to_group("value_%d" % abs(_value))
 	add_to_group("cell")
 	candidates = Candidates.new()
 
@@ -29,7 +31,7 @@ func _init(_pos: Vector2i, _value := 0):
 
 
 func initialize_candidates(cols: int, house_size: int):
-	candidates.initialize_candidates(cols, house_size)
+	candidates.initialize_candidates()
 	candidates.visible = (value == 0)
 
 

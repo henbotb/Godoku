@@ -14,6 +14,7 @@ extends Control
 @onready var highlight_orthogonal_check_box: CheckBox = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightOrthogonalCheckBox
 @onready var highlight_same_value_check_box: CheckBox = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightSameValueCheckBox
 @onready var highlight_empty_cells_check_box: CheckBox = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightEmptyCellsCheckBox
+@onready var highlight_candidates: CheckBox = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightCandidates
 @onready var highlight_all_check_box: CheckBox = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HighlightAllCheckBox
 @onready var color_picker_button: ColorPickerButton = $SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer/ColorPickerButton
 
@@ -66,6 +67,7 @@ func load_settings() -> void:
 	highlight_orthogonal_check_box.button_pressed = Settings.highlight_orthogonal
 	highlight_same_value_check_box.button_pressed = Settings.highlight_same_value
 	highlight_empty_cells_check_box.button_pressed = Settings.highlight_empty_cells
+	highlight_candidates.button_pressed = Settings.highlight_candidates
 	highlight_all_check_box.button_pressed = Settings.highlight_all
 	color_picker_button.color = Settings.highlight_color
 
@@ -113,8 +115,9 @@ func _check_box_updated(box: BaseButton) -> void:
 			Settings.highlight_empty_cells = box.button_pressed
 		"HighlightAllCheckBox":
 			Settings.highlight_all = box.button_pressed
+		"HighlightCandidates":
+			Settings.highlight_candidates = box.button_pressed
 	
-	print("emitting")
 	highlighting_updated.emit()
 
 

@@ -216,6 +216,5 @@ text = "Copy"
 [connection signal="pressed" from="PauseButtons/HostButton" to="." method="_set_window_visibility" binds= ["host", true]]
 [connection signal="pressed" from="PauseButtons/QuitToMenuButton" to="." method="_set_window_visibility" binds= ["quit", true]]
 [connection signal="pressed" from="ConfirmQuitPanel/MarginContainer/VBoxContainer/HBoxContainer/ConfirmQuitButton" to="." method="confirm_quit"]
-[connection signal="pressed" from="ConfirmQuitPanel/MarginContainer/VBoxContainer/HBoxContainer/RejectQuitButton" to="." method="display_confirm_quit" binds= [false]]
 [connection signal="pressed" from="MultiplayerPanel/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/ShowCodeButton" to="." method="toggle_code_displayed"]
 [connection signal="pressed" from="MultiplayerPanel/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/CopyCodeButton" to="." method="copy_code"]

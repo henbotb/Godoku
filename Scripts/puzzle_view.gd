@@ -12,7 +12,10 @@ var selected_cell_pos: Vector2i = Vector2i.ZERO
 @onready var board_visual: GridContainer = $AspectRatioContainer/Board
 
 func _initialize_board_data() -> void:
+	
 	board_visual.columns = board.NUM_BLOCK_COLS
+	Candidates.cols = board.NUM_COLUMNS_PER_BLOCK
+	Candidates.block_size = board.NUM_CELLS_PER_BLOCK
 	
 	for y in range(board.board_array.size()):
 		var block_array = board.board_array[y]
@@ -22,6 +25,7 @@ func _initialize_board_data() -> void:
 			var cell_value = block_array[x]
 			var cell = Cell.new(Vector2i(x, y), cell_value)
 			
+			cell.candidates.initialize_candidates()
 			cell.pressed.connect(_cell_pressed.bind(cell))
 			block.add_child(cell)
 			
@@ -32,9 +36,19 @@ func _ready() -> void:
 	settings_menu.highlighting_updated.connect(highlight)
 	_initialize_board_data()
 
+func debug_print(cell: Cell):
+	print(cell.get_groups())
+
+
 func _cell_pressed(cell: Cell) -> void:
+	if Settings.debug_mode:
+		debug_print(cell)
+	if selected_cell == cell:
+		return
+
 	selected_cell = cell
 	highlight()
+
 
 func highlight():
 	reset_highlights()
@@ -76,9 +90,11 @@ func reset_highlights():
 	get_tree().call_group("highlighted", "unhighlight")
 
 func highlight_orthogonal(cell: Cell):
-	pass
-	
-	
+	var to_highlight = _get_row(cell.pos) + _get_column(cell.pos)
+	for _cell in to_highlight:
+		_cell.highlight()
+
+
 # maybe name all parameter variables "_thing"
 func highlight_block(_cell: Cell):
 	for cell in _cell.get_parent().get_children():
@@ -86,14 +102,29 @@ func highlight_block(_cell: Cell):
 		cell.add_to_group("highlighted")
 	
 func highlight_same_value(_cell: Cell):
-	get_tree().call_group("%d" % _cell.value, "highlight")
+	get_tree().call_group("value_%s" % abs(_cell.value), "highlight")
 	
-func highlight_candidates(cell: Button): 
-	# TODO
-	pass
+func highlight_candidates(_cell: Cell):
+	# TODO: surely rework this at some point
+	# TODO: test if this even works once input is working
+	var candidates: Array[Node] = get_tree().get_nodes_in_group("candidate_%d" % _cell.value)
+	for candidate in candidates:
+		if candidate.text == "":
+			continue
+			
+		# TODO: do this as well because this is bad
+		if candidate.get_parent().get_parent().is_in_group("highlighted"):
+			candidate.add_theme_color_override("font_color", Color.BLANCHED_ALMOND)
+		else:
+			candidate.add_theme_color_override("font_color", Settings.config.get_value("board_settings", "highlight_color"))
+		candidate.add_to_group("highlighted_candidates")
 
-func highlight_all(cell: Button):
-	pass
+
+func highlight_all(_cell: Button):
+	var cells: Array[Node] = get_tree().get_nodes_in_group("value_%d" % abs(_cell.value))
+	for cell in cells:
+		highlight_orthogonal(cell)
+		highlight_block(cell)
 
 
 func _generate_block() -> GridContainer:
@@ -103,6 +134,24 @@ func _generate_block() -> GridContainer:
 	block_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	block_new.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	return block_new
+
+func _get_row(pos: Vector2i) -> Array[Cell]:
+	var row: Array[Cell] = []
+	
+	for outer_ndx in range((pos.y / board.NUM_BLOCK_COLS) * board.NUM_BLOCK_COLS, ((pos.y / board.NUM_BLOCK_COLS) + 1) * board.NUM_BLOCK_COLS):
+		for inner_ndx in range((pos.x / board.NUM_BLOCK_COLS) * board.NUM_BLOCK_COLS, ((pos.x / board.NUM_BLOCK_COLS) + 1) * board.NUM_BLOCK_COLS):
+			row.append(board_visual.get_child(outer_ndx).get_child(inner_ndx))
+			
+	return row
+
+func _get_column(pos: Vector2i) -> Array[Cell]:
+	var column: Array[Cell] = []
+	
+	for outer_ndx in range(pos.y % board.NUM_BLOCK_COLS, board.NUM_BLOCKS, board.NUM_BLOCK_COLS):
+		for inner_ndx in range(pos.x % board.NUM_COLUMNS_PER_BLOCK, board.NUM_CELLS_PER_BLOCK, board.NUM_COLUMNS_PER_BLOCK):
+			column.append(board_visual.get_child(outer_ndx).get_child(inner_ndx))
+
+	return column
 
 
 # convert from string to this format
