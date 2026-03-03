@@ -53,7 +53,7 @@ func highlight():
 	selected_cell.add_to_group("highlighted")
 	
 	# house
-	if Settings.highlight_house:
+	if Settings.highlight_block:
 		highlight_block(selected_cell)
 	
 	# row / column

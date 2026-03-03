@@ -24,13 +24,12 @@ offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_b4jr2")
-current_tab = 1
+current_tab = 0
 tab_0/title = "Display & Audio"
 tab_1/title = "Board"
 tab_2/title = "Keybinds"
 
 [node name="DisplayAndAudioTabBar" type="TabBar" parent="SettingTabContainer" unique_id=1422655182]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 metadata/_tab_name = "Display & Audio"
@@ -136,6 +135,7 @@ size_flags_stretch_ratio = 2.0
 text = "0"
 
 [node name="BoardTabBar" type="TabBar" parent="SettingTabContainer" unique_id=930520716]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 metadata/_tab_name = "Board"
@@ -159,11 +159,11 @@ layout_mode = 2
 layout_mode = 2
 text = "Highlighting"
 
-[node name="HighlightHouseCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=365784525]
+[node name="HighlightBlockCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=365784525]
 layout_mode = 2
 text = "Highlight house when cell selected"
 
-[node name="HighlightBlockCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1811087179]
+[node name="HighlightOrthogonalCheckBox" type="CheckBox" parent="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer" unique_id=1811087179]
 layout_mode = 2
 text = "Highlight row and column when cell selected"
 
@@ -208,9 +208,12 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 8
 
-[connection signal="tab_changed" from="SettingTabContainer" to="." method="fix_ui_corner"]
+[connection signal="tab_changed" from="SettingTabContainer" to="." method="_save_on_tab_change"]
 [connection signal="toggled" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/FullscreenCheckButton" to="." method="toggle_fullscreen"]
-[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox/MasterSlider" to="." method="update_slider_percentage" binds= [&"master"]]
-[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox/MusicSlider" to="." method="update_slider_percentage" binds= [&"music"]]
-[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox/EffectSlider" to="." method="update_slider_percentage" binds= [&"effect"]]
+[connection signal="drag_ended" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox/MasterSlider" to="." method="_save_slide_percentage" flags=18]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MasterVolumeHBox/MasterSlider" to="." method="_update_slider_percentage" flags=18]
+[connection signal="drag_ended" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox/MusicSlider" to="." method="_save_slide_percentage" flags=18]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/MusicVolumeHBox/MusicSlider" to="." method="_update_slider_percentage" flags=18]
+[connection signal="drag_ended" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox/EffectSlider" to="." method="_save_slide_percentage" flags=18]
+[connection signal="value_changed" from="SettingTabContainer/DisplayAndAudioTabBar/MarginContainer/VBoxContainer/EffectVolumeHBox/EffectSlider" to="." method="_update_slider_percentage" flags=18]
 [connection signal="color_changed" from="SettingTabContainer/BoardTabBar/MarginContainer/VBoxContainer/HBoxContainer/ColorPickerButton" to="." method="_update_color"]

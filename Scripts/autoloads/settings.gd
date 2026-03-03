@@ -3,21 +3,29 @@ extends Node
 var config = ConfigFile.new()
 
 # DISPLAY AND AUDIO SETTINGS
-var fullscreen: bool
+var fullscreen: bool:
+	set (value):
+		if value:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 var master_percentage: float
 var music_percentage: float
 var effect_percentage: float
 
 # BOARD SETTINGS
-var highlight_house: bool
+var highlight_block: bool
 var highlight_orthogonal: bool
 var highlight_same_value: bool
 var highlight_candidates: bool
 var highlight_empty_cells: bool
 var highlight_all: bool
 
-var highlight_color: Color
+var highlight_color: Color:
+	set(value):
+		HIGHLIGHTED.get_stylebox("normal", "Button").bg_color = value
+		highlight_color = value
 
 # KEYBIND SETTINSG
 
@@ -41,12 +49,12 @@ func _ready() -> void:
 func load_settings():	
 	# DISPLAY AND AUDIO SETTINGS
 	fullscreen = config.get_value("game_settings", "fullscreen", false)
-	master_percentage = config.get_value("game_settings", "master_percentage", 50)
-	music_percentage = config.get_value("game_settings", "music_percentage", 50)
-	effect_percentage = config.get_value("game_settings", "effect_percentage", 50)
+	master_percentage = config.get_value("game_settings", "master_percentage", 0.75)
+	music_percentage = config.get_value("game_settings", "music_percentage", 0.75)
+	effect_percentage = config.get_value("game_settings", "effect_percentage", 0.75)
 	
 	# BOARD SETTINGS
-	highlight_house = config.get_value("board_settings", "highlight_house", true)
+	highlight_block = config.get_value("board_settings", "highlight_block", true)
 	highlight_orthogonal = config.get_value("board_settings", "highlight_orthogonal", true)
 	highlight_same_value= config.get_value("board_settings", "highlight_same_value", true)
 	highlight_candidates = config.get_value("board_settings", "highlight_candidates", true)
@@ -66,7 +74,7 @@ func save():
 	config.set_value("game_settings", "effect_percentage", effect_percentage)
 	
 	# BOARD SETTINGS
-	config.set_value("board_settings", "highlight_house", highlight_house)
+	config.set_value("board_settings", "highlight_block", highlight_block)
 	config.set_value("board_settings", "highlight_orthogonal", highlight_orthogonal)
 	config.set_value("board_settings", "highlight_same_value", highlight_same_value)
 	config.set_value("board_settings", "highlight_candidates", highlight_candidates)
