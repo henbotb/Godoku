@@ -40,7 +40,7 @@ func initialize_candidates(_candidate_values: Array[bool] = []):
 		candidate_label.add_to_group("candidate_%d" % (candidate_index + 1))
 		
 		add_child(candidate_label)
-		
+
 func toggle_candidate(value: int):
 	if value < 1 or value > block_size:
 		return

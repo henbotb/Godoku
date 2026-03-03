@@ -95,6 +95,9 @@ func highlight():
 
 func reset_highlights():
 	get_tree().call_group("highlighted", "unhighlight")
+	for candidate in get_tree().get_nodes_in_group("highlighted_candidates"):
+		candidate.remove_theme_color_override("font_color")
+
 
 func highlight_orthogonal(cell: Cell):
 	var to_highlight = _get_row(cell.pos) + _get_column(cell.pos)
@@ -114,8 +117,8 @@ func highlight_same_value(_cell: Cell):
 func highlight_candidates(_cell: Cell):
 	# TODO: surely rework this at some point
 	# TODO: test if this even works once input is working
-	var candidates: Array[Node] = get_tree().get_nodes_in_group("candidate_%d" % _cell.value)
-	for candidate in candidates:
+	var _candidates: Array[Node] = get_tree().get_nodes_in_group("candidate_%d" % abs(_cell.value))
+	for candidate in _candidates:
 		if candidate.text == "":
 			continue
 			
@@ -123,7 +126,7 @@ func highlight_candidates(_cell: Cell):
 		if candidate.get_parent().get_parent().is_in_group("highlighted"):
 			candidate.add_theme_color_override("font_color", Color.BLANCHED_ALMOND)
 		else:
-			candidate.add_theme_color_override("font_color", Settings.config.get_value("board_settings", "highlight_color"))
+			candidate.add_theme_color_override("font_color", Settings.highlight_color)
 		candidate.add_to_group("highlighted_candidates")
 
 

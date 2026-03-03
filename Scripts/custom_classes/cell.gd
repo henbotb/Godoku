@@ -30,7 +30,7 @@ func _init(_pos: Vector2i, _value := 0):
 	add_child(candidates)
 
 
-func initialize_candidates(cols: int, house_size: int):
+func initialize_candidates():
 	candidates.initialize_candidates()
 	candidates.visible = (value == 0)
 
@@ -41,8 +41,8 @@ func render():
 
 
 func highlight():
-		theme = Settings.HIGHLIGHTED
-		add_to_group("highlighted")
+	theme = Settings.HIGHLIGHTED
+	add_to_group("highlighted")
 
 
 func unhighlight():
