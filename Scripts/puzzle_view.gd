@@ -3,7 +3,7 @@ extends Control
 var board: BoardResource
 var candidates: CandidateResource
 
-var selected_cell: Button = null
+var selected_cell: Cell = null
 var selected_cell_pos: Vector2i = Vector2i.ZERO
 
 @onready var board_visual: GridContainer = $AspectRatioContainer/Board
@@ -12,28 +12,17 @@ func _initialize_board_data() -> void:
 	board_visual.columns = board.NUM_BLOCK_COLS
 	
 	for y in range(board.board_array.size()):
-		var block = board.board_array[y]
+		var block_array = board.board_array[y]
+		var block = _generate_block()
 		
-		var block_new = GridContainer.new()
-		block_new.add_to_group("block")
-		block_new.columns = board.NUM_COLUMNS_PER_BLOCK
-		block_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		block_new.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		
-		for x in range(block.size()):
-			var cell = block[x]
+		for x in range(block_array.size()):
+			var cell_value = block_array[x]
+			var cell = Cell.new(Vector2i(x, y), cell_value)
 			
-			var cell_new = Button.new()
-			cell_new.text = str(cell) if cell != 0 else ""
-			cell_new.add_to_group("cell")
-			cell_new.add_to_group("candidate_%s" % cell_new.text if cell_new.text != "" else "empty") # idk
-			cell_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			cell_new.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			cell.pressed.connect(_cell_pressed.bind(cell))
+			block.add_child(cell)
 			
-			cell_new.pressed.connect(_cell_pressed.bind(cell_new, Vector2i(x, y)))
-
-			block_new.add_child(cell_new)
-		board_visual.add_child(block_new)
+		board_visual.add_child(block)
 
 
 func _ready() -> void:
@@ -41,9 +30,8 @@ func _ready() -> void:
 
 #SELECTED.get_stylebox("normal", "Button").bg_color = Settings.highlight_color
 
-func _cell_pressed(cell: Button, cell_pos: Vector2i) -> void:
+func _cell_pressed(cell: Cell) -> void:
 	selected_cell = cell
-	selected_cell_pos = cell_pos
 	highlight()
 
 func highlight():
@@ -74,25 +62,20 @@ func highlight():
 	
 
 func reset_highlights():
-	var highlighted_cells: Array[Node] = get_tree().get_nodes_in_group("highlighted")
-	for cell in highlighted_cells:
-		cell.theme = null
-		cell.remove_from_group("highlighted")
+	get_tree().call_group("highlighted", "unhighlight")
 
-func highlight_orthogonal(cell: Button):
+func highlight_orthogonal(cell: Cell):
 	pass
 	
 	
 # maybe name all parameter variables "_thing"
-func highlight_block(_cell: Button):
+func highlight_block(_cell: Cell):
 	for cell in _cell.get_parent().get_children():
 		cell.theme = Settings.HIGHLIGHTED
 		cell.add_to_group("highlighted")
 	
-func highlight_same_value(_cell: Button):
-	for cell: Button in get_tree().get_nodes_in_group("candidate_%s" % _cell.text):
-		cell.theme = Settings.HIGHLIGHTED
-		cell.add_to_group("highlighted")
+func highlight_same_value(_cell: Cell):
+	get_tree().call_group("%d" % _cell.value, "highlight")
 	
 func highlight_candidates(cell: Button): 
 	# TODO
@@ -100,6 +83,15 @@ func highlight_candidates(cell: Button):
 
 func highlight_all(cell: Button):
 	pass
+
+
+func _generate_block() -> GridContainer:
+	var block_new = GridContainer.new()
+	block_new.add_to_group("block")
+	block_new.columns = board.NUM_COLUMNS_PER_BLOCK
+	block_new.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	block_new.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	return block_new
 
 
 # convert from string to this format

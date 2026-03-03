@@ -48,8 +48,6 @@ func _ready() -> void:
 
 func load_settings() -> void:
 	
-	print("loading settings")
-	
 	# DISPLAY AND AUDIO
 	fullscreen_check_button.button_pressed = Settings.fullscreen
 	master_slider.value = Settings.master_percentage
