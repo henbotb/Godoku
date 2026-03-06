@@ -11,7 +11,7 @@ var fullscreen: bool:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 # TESTING:
-var debug_mode: bool = true
+var debug_mode: bool = false
 
 
 var master_percentage: float

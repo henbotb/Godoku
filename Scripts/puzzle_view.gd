@@ -44,7 +44,8 @@ func _ready() -> void:
 	_initialize_board_data()
 
 func debug_print(cell: Cell):
-	print(cell.get_groups())
+	if Settings.debug_mode:
+		print(cell.get_groups())
 
 
 func _cell_pressed(cell: Cell) -> void:
@@ -147,11 +148,9 @@ func _input(event):
 
 	if event is InputEventKey and event.pressed:
 		if selected_cell == null:
-			print("null cell")
 			return
 
 		if selected_cell.value < 0:
-			print("selected value is locked (<0)")
 			return
 
 		if event.is_action_pressed("delete") or event.is_action_pressed("backspace"):
@@ -165,12 +164,9 @@ func _input(event):
 			in_numeric_range or 
 			in_alphabetic_range
 			):
-			print("Reaching input event")
 			if marking_mode == MarkingMode.CELL_CANDIDATE:
-				print("Reaching mark cell candidate")
 				selected_cell.candidates.toggle_candidate(event.keycode - KEY_0 if in_numeric_range else KEY_A + 10)
 			else:
-				print("Reaching mark cell")
 				selected_cell.value = event.keycode - (KEY_0 if in_numeric_range else KEY_A + 10)
 
 		selected_cell.render()

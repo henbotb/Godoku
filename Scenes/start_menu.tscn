@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bnyff1r2exkmv" path="res://Scripts/start_menu.gd" id="1_bwyd4"]
 [ext_resource type="Theme" uid="uid://dqqaua4my3ejj" path="res://Themes/default.tres" id="2_yr8ux"]
+[ext_resource type="Script" uid="uid://dw11bg3swpi3f" path="res://Components/button_effecs_module.gd" id="3_8u0lp"]
 [ext_resource type="FontFile" uid="uid://cgp1e0xbo3x8n" path="res://Assets/Fonts/Poppins-Bold.ttf" id="3_rp0pw"]
 [ext_resource type="Shader" uid="uid://8rmrr6mh67ra" path="res://Shaders/Blur.gdshader" id="4_r66qc"]
 [ext_resource type="PackedScene" uid="uid://blmnss33r7uw2" path="res://Scenes/settings_menu.tscn" id="5_kbw71"]
@@ -48,26 +49,46 @@ layout_mode = 2
 theme = ExtResource("2_yr8ux")
 text = "New Game"
 
+[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/NewGameButton" unique_id=585582438]
+script = ExtResource("3_8u0lp")
+metadata/_custom_type_script = "uid://dw11bg3swpi3f"
+
 [node name="ResumeGameButton" type="Button" parent="VBoxContainer" unique_id=678621163]
 layout_mode = 2
 theme = ExtResource("2_yr8ux")
 disabled = true
 text = "Resume Game"
 
+[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/ResumeGameButton" unique_id=969036020]
+script = ExtResource("3_8u0lp")
+metadata/_custom_type_script = "uid://dw11bg3swpi3f"
+
 [node name="MultiplayerButton" type="Button" parent="VBoxContainer" unique_id=400728497]
 layout_mode = 2
 theme = ExtResource("2_yr8ux")
 text = "Join Multiplayer"
+
+[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/MultiplayerButton" unique_id=1508111149]
+script = ExtResource("3_8u0lp")
+metadata/_custom_type_script = "uid://dw11bg3swpi3f"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=2093368313]
 layout_mode = 2
 theme = ExtResource("2_yr8ux")
 text = "Settings"
 
+[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/SettingsButton" unique_id=1646683873]
+script = ExtResource("3_8u0lp")
+metadata/_custom_type_script = "uid://dw11bg3swpi3f"
+
 [node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1305840168]
 layout_mode = 2
 theme = ExtResource("2_yr8ux")
 text = "Quit"
+
+[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/QuitButton" unique_id=83760243]
+script = ExtResource("3_8u0lp")
+metadata/_custom_type_script = "uid://dw11bg3swpi3f"
 
 [node name="TitleLabel" type="Label" parent="." unique_id=1116790288]
 layout_mode = 1
