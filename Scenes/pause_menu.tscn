@@ -114,7 +114,7 @@ text = "Are you sure you want to quit?"
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
-text = "Your progress will be saved"
+text = "Your progress will not be saved"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ConfirmQuitPanel/MarginContainer/VBoxContainer" unique_id=1058927926]
 layout_mode = 2

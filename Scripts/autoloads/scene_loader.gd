@@ -3,9 +3,11 @@ extends Node
 # credit https://www.youtube.com/watch?v=m4PfHg3hmSo
 
 enum SceneType {
-	Puzzle,
+	PuzzleSingleplayer,
+	PuzzleMultiplayer,
 	Menu,
 }
+
 
 signal progress_changed(progress)
 signal load_finished
@@ -51,11 +53,13 @@ func _process(_delta: float) -> void:
 			
 			loaded_resource = ResourceLoader.load_threaded_get(scene_path)
 			
-			#get_tree().change_scene_to_packed(loaded_resource)
 			var scene_instance: Node = loaded_resource.instantiate()
 			
 			match(scene_type):
-				SceneType.Puzzle:
+				SceneType.PuzzleSingleplayer:
+					scene_instance.board = scene_data["board"]
+					scene_instance.candidates = scene_data["candidates"]
+				SceneType.PuzzleMultiplayer:
 					scene_instance.board = scene_data["board"]
 					scene_instance.candidates = scene_data["candidates"]
 					

@@ -7,8 +7,8 @@ enum MarkingMode {
 	COLOR,
 }
 
-var board: BoardResource
-var candidates: CandidateResource
+@export var board: BoardResource
+@export var candidates: CandidateResource
 
 var marking_mode: MarkingMode = MarkingMode.ADD
 var selected_cell: Cell = null
@@ -111,8 +111,8 @@ func highlight_block(_cell: Cell):
 	for cell in _cell.get_parent().get_children():
 		cell.theme = Settings.HIGHLIGHTED
 		cell.add_to_group("highlighted")
-		
-	
+
+
 func highlight_same_value(_cell: Cell):
 	get_tree().call_group("value_%s" % abs(_cell.value), "highlight")
 	
@@ -122,7 +122,7 @@ func highlight_candidates(_cell: Cell):
 	for candidate in _candidates:
 		if candidate.text == "":
 			continue
-			
+		
 		# TODO: do this as well because this is bad
 		if candidate.get_parent().get_parent().is_in_group("highlighted"):
 			candidate.add_theme_color_override("font_color", Color.BLANCHED_ALMOND)

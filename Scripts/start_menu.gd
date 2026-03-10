@@ -5,11 +5,15 @@ extends Control
 @onready var new_game_panel: Panel = $NewGamePanel
 @onready var difficulty_select_button: OptionButton = $NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/DifficultySelectButton
 @onready var board_code_line_edit: LineEdit = $NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/BoardCodeLineEdit
+@onready var paste_code_button: Button = $NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PasteCodeButton
 
+enum Difficulty {
+	EASY = 0,
+	MEDIUM,
+	HARD,
+	DIABOLICAL,
+}
 
-
-func _ready() -> void:
-	print(_cell_char_to_val(" "))
 
 func _on_quit_button_pressed() -> void:
 	Settings.save()
@@ -34,22 +38,15 @@ func _toggle_new_game_visibility(on: bool) -> void:
 	
 func _load_new_game_difficulty() -> void:
 	
-	var board: Array = _convert_between_board_types("050703060007000800000816000000030000005000100730040086906000204840572093000409000", 3, 81, 9, 3, 9)
-	
-	match(difficulty_select_button.selected):
-		0:
-			print("easy")
-		1:
-			print("medium")
-		2:
-			print("hard")
-	
+	var board_unconverted: String = _get_puzzle_string(difficulty_select_button.selected)
+	var board_converted: Array = _convert_between_board_types(board_unconverted, 3, 81, 9, 3, 9)
+
 	SceneLoader.load_scene(
 		"uid://ceg2ys6ghalka", # puzzle_view.tscn
-		SceneLoader.SceneType.Puzzle, 
+		SceneLoader.SceneType.PuzzleSingleplayer, 
 		{
-			"board": BoardResource.new(9, 9, 3, 3, board), 
-			"candidates": CandidateResource.new(9, 9, 3, 3, board),
+			"board": BoardResource.new(9, 9, 3, 3, board_converted), 
+			"candidates": CandidateResource.new(9, 9, 3, 3, board_converted),
 		}
 	)
 
@@ -70,21 +67,24 @@ func _cell_char_to_val(character: String) -> int:
 
 
 func _load_new_game_code() -> void:
-				
-	# 050703060007000800000816000000030000005000100730040086906000204840572093000409000
 
-	var board: Array = _convert_between_board_types("050703060007000800000816000000030000005000100730040086906000204840572093000409000", 3, 81, 9, 3, 9)
+	var board: Array = _convert_between_board_types(board_code_line_edit.text.lstrip(" ").rstrip(" "), 3, 81, 9, 3, 9)
+	if board == []:
+		board_code_line_edit.placeholder_text = "Invalid Code!"
+		board_code_line_edit.add_theme_color_override(&"font_placeholder_color", Color.RED)
+		board_code_line_edit.clear()
+		return
 
 	SceneLoader.load_scene(
 		"uid://ceg2ys6ghalka", # puzzle_view.tscn
-		SceneLoader.SceneType.Puzzle, 
+		SceneLoader.SceneType.PuzzleSingleplayer, 
 		{
 			"board": BoardResource.new(9, 9, 3, 3, board), 
 			"candidates": CandidateResource.new(9, 9, 3, 3, board),
 		}
 	)
 
-
+# format will eventually support removing the need for the excess parameters
 func _convert_between_board_types(_board_string: String, num_block_cols: int, num_cells: int, num_cells_per_block: int, num_columns_per_block: int, num_board_cols: int) -> Array:
 	if _board_string.length() != num_cells:
 		printerr("Could not initialize converted board type, num_cells != _board_string length")
@@ -93,6 +93,7 @@ func _convert_between_board_types(_board_string: String, num_block_cols: int, nu
 	var converted_board: Array = []
 	
 	# refer to test.py need be
+	# wack indexing math
 	for r in range(0, num_cells, num_cells_per_block * num_block_cols): # 0, num_cells, num_cells_per_block * num_block_cols
 		for k in range(0, num_board_cols, num_columns_per_block): # 0, num_board_cols, num_cols_per_block
 			var converted_board_row: Array[int] = []
@@ -103,6 +104,40 @@ func _convert_between_board_types(_board_string: String, num_block_cols: int, nu
 			
 	return converted_board
 
+
+func _paste_code_button_clicked():
+	board_code_line_edit.text = DisplayServer.clipboard_get()
+
+
+func _get_puzzle_string(difficulty: Difficulty) -> String:
+	var upper_bound: int
+	var difficulty_string: String
+	
+	match difficulty:
+		Difficulty.EASY:
+			upper_bound = 100000
+			difficulty_string = "easy"
+		Difficulty.HARD:
+			upper_bound = 321592
+			difficulty_string = "hard"
+		Difficulty.DIABOLICAL:
+			upper_bound = 119681
+			difficulty_string = "diabolical"
+		_, Difficulty.MEDIUM:
+			upper_bound = 352643
+			difficulty_string = "medium"
+	
+	var current_line: int = 1
+	var file: FileAccess = FileAccess.open("res://Assets/Puzzles/%s.txt" % difficulty_string, FileAccess.READ)
+	
+	var puzzle_num: int = randi_range(0, upper_bound)
+	
+	# TODO: Migrate to better system for extracting lines, tsv or csv, when generating puzzles
+	while not file.eof_reached() and current_line <= puzzle_num:
+		file.get_line()
+		current_line += 1
+
+	return file.get_line().substr(13, 81)
 
 func _input(event: InputEvent):
 	if event.is_action_pressed(&"settings"):

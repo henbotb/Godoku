@@ -59,18 +59,11 @@ theme = ExtResource("2_yr8ux")
 disabled = true
 text = "Resume Game"
 
-[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/ResumeGameButton" unique_id=969036020]
-script = ExtResource("3_8u0lp")
-metadata/_custom_type_script = "uid://dw11bg3swpi3f"
-
 [node name="MultiplayerButton" type="Button" parent="VBoxContainer" unique_id=400728497]
 layout_mode = 2
 theme = ExtResource("2_yr8ux")
+disabled = true
 text = "Join Multiplayer"
-
-[node name="ButtonEffectsModule" type="Node" parent="VBoxContainer/MultiplayerButton" unique_id=1508111149]
-script = ExtResource("3_8u0lp")
-metadata/_custom_type_script = "uid://dw11bg3swpi3f"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=2093368313]
 layout_mode = 2
@@ -280,6 +273,7 @@ text = "OR"
 [node name="VBoxContainer" type="VBoxContainer" parent="NewGamePanel/MarginContainer/VBoxContainer2" unique_id=1542124176]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=789500725]
 layout_mode = 2
@@ -295,7 +289,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 placeholder_text = "Enter code"
+context_menu_enabled = false
 virtual_keyboard_enabled = false
+
+[node name="PasteCodeButton" type="Button" parent="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1522608519]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Paste"
 
 [node name="EnterCodeButton" type="Button" parent="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1980318747]
 layout_mode = 2
@@ -310,4 +310,5 @@ text = "Create"
 [connection signal="pressed" from="MultiplayerPanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/ShowCodeButton" to="." method="toggle_code_visibility"]
 [connection signal="pressed" from="MultiplayerPanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PasteCodeButton" to="." method="paste_code"]
 [connection signal="pressed" from="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer3/HBoxContainer/JoinGameButton" to="." method="_load_new_game_difficulty"]
+[connection signal="pressed" from="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PasteCodeButton" to="." method="_paste_code_button_clicked"]
 [connection signal="pressed" from="NewGamePanel/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/EnterCodeButton" to="." method="_load_new_game_code"]
