@@ -142,7 +142,7 @@ func highlight_all(_cell: Button):
 
 func _input(event):
 	if event.is_action_pressed("toggle_candidate_marking"):
-		candidate_mark_button.button_pressed = true
+		candidate_mark_button.button_pressed = not candidate_mark_button.button_pressed
 		return
 
 	if event is InputEventKey and event.pressed:
