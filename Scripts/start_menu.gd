@@ -19,11 +19,14 @@ func _on_quit_button_pressed() -> void:
 	Settings.save()
 	get_tree().quit()
 
+
 func toggle_code_visibility():
 	code_line_edit.secret = not code_line_edit.secret 
 
+
 func paste_code():
 	code_line_edit.text = DisplayServer.clipboard_get()
+
 
 func toggle_multiplayer_visibility(on: bool):
 	multiplayer_panel.visible = on
@@ -32,10 +35,11 @@ func toggle_multiplayer_visibility(on: bool):
 func _on_resume_game_button_pressed() -> void:
 	pass # Replace with function body.
 
+
 func _toggle_new_game_visibility(on: bool) -> void:
 	new_game_panel.visible = on
 
-	
+
 func _load_new_game_difficulty() -> void:
 	
 	var board_unconverted: String = _get_puzzle_string(difficulty_select_button.selected)
@@ -84,6 +88,7 @@ func _load_new_game_code() -> void:
 		}
 	)
 
+
 # format will eventually support removing the need for the excess parameters
 func _convert_between_board_types(_board_string: String, num_block_cols: int, num_cells: int, num_cells_per_block: int, num_columns_per_block: int, num_board_cols: int) -> Array:
 	if _board_string.length() != num_cells:
@@ -128,19 +133,26 @@ func _get_puzzle_string(difficulty: Difficulty) -> String:
 			difficulty_string = "medium"
 	
 	var current_line: int = 1
-	var file: FileAccess = FileAccess.open("res://Assets/Puzzles/%s.txt" % difficulty_string, FileAccess.READ)
 	
+	if not FileAccess.file_exists("res://Assets/Puzzles/%s.txt" % difficulty_string):
+		printerr("Puzzle file not found: res://Assets/Puzzles/%s.txt" % difficulty_string)
+		return ""
+		
+	var file: FileAccess = FileAccess.open("res://Assets/Puzzles/%s.txt" % difficulty_string, FileAccess.READ)
 	var puzzle_num: int = randi_range(0, upper_bound)
 	
 	# TODO: Migrate to better system for extracting lines, tsv or csv, when generating puzzles
 	while not file.eof_reached() and current_line <= puzzle_num:
 		file.get_line()
 		current_line += 1
+		
+	var board_string: String = file.get_line().substr(13, 81)
+	file.close()
+	
+	return board_string
 
-	return file.get_line().substr(13, 81)
 
 func _input(event: InputEvent):
 	if event.is_action_pressed(&"settings"):
 		toggle_multiplayer_visibility(false)
 		_toggle_new_game_visibility(false)
-		

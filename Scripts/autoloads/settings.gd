@@ -51,6 +51,7 @@ func _ready() -> void:
 	load_settings()
 	save()
 
+
 func load_settings():	
 	# DISPLAY AND AUDIO SETTINGS
 	fullscreen = config.get_value("game_settings", "fullscreen", false)
